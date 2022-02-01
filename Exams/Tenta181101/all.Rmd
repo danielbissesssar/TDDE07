@@ -1,0 +1,419 @@
+---
+title: "Untitled"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+# 2019-10-31
+```{r setup, eval=FALSE, echo=TRUE}
+
+# Compute the bayecian decision 
+p_up = 0.6
+p_down = 1 - p_up
+EU_buy = p_up*30 + p_down*(-10)
+EU_notBuy = p_up*90 + p_down*(-120)
+
+#EU_byy > nnot byt => should buy
+
+p_posterior_up = 65/105
+p_posterior_down = 1-p_posterior_up
+
+EU_buy2 = p_posterior_up*30 + p_posterior_down*(-10)
+EU_notBuy2 = p_posterior_up*90 + p_posterior_down*(-120)
+
+
+#2
+n = nrow(Traffic)
+sumY = sum(Traffic$y)
+
+
+thetaGrid = seq(18,24,.01)
+alpha = 20
+beta = 1
+alpha_posterior = sumY + alpha
+beta_posterior = n + beta
+plot(thetaGrid, dgamma(thetaGrid, alpha_posterior, beta_posterior))
+
+prob = pgamma(21, alpha_posterior, beta_posterior)
+
+#b
+data = Traffic
+yes_subset <- subset(data, limit == 'yes')
+no_subset = subset(data, limit == 'no')
+
+draws_yes = rgamma(5000, sum(yes_subset$y) + alpha, nrow(yes_subset) + beta)
+draws_no = rgamma(5000, sum(no_subset$y) + alpha, nrow(no_subset) + beta)
+difference = draws_no - draws_yes 
+hist(difference)
+
+mean(draws_no>draws_yes)
+#andelen av fall där no limit kommer att resultera att number off accidents (y ) är större än antalet accidents när speed limit fanns
+
+#tar antalet accidents när inget limit fanns * 0.85 => ex 12 accidents * 0.85. Kollar nu andelen där de fortfarande skulle vara större n där det fanns limit
+# Ser då att andelen minskar till 0.869. Det är är därmed rimligt att 
+mean(draws_no*0.9>draws_yes)
+
+#c
+set.seed(12345)
+x = 20
+lambda = 30
+alpha = 2
+beta = 2
+nDraws = 2000
+
+
+v_draws = c(30)
+pi_draws = c(0.5)
+pi_draw = 1
+for (i in 1:nDraws){
+  #Compute Full conditional posterior (Normal model with conditionally conjugate prior)
+  #my <- rnorm(1, mean = myn, sd = sqrt(taonSquared))
+  z <- rpois(1, lambda*(1-pi_draw))
+  v = z + x
+  v_draws = append(v_draws, v)
+  
+  pi_draw = rbeta(1, alpha + x, beta + v -x)
+  pi_draws = append(pi_draws, pi_draw)
+}
+
+v_draws = v_draws[500:nDraws]
+pi_draws = pi_draws[500:nDraws]
+par(mfrow=c(2,1))
+#plot(v_draws, type = 'l')
+#plot(pi_draws, type = 'l')
+
+hist(pi_draws[500:nDraws], 30)
+hist(v_draws[500:nDraws], 30)
+
+set.seed(1235)
+# start values
+burnin = 500
+niter = 2000
+nu <- 30
+pi <- .5
+nu_vec <- rep(0,burnin+niter)
+pi_vec <- rep(0,burnin+niter)
+nu_vec[1] <- nu
+pi_vec[1] <- pi
+for(i in 2:(burnin+niter)){
+  z <- rpois(1,lambda*(1-pi))
+  nu = z + x
+  nu_vec[i] <- nu
+  pi <- rbeta(1,alpha+x,beta+nu-x)
+  pi_vec[i] <- pi
+}
+
+
+par(mfrow=c(2,1))
+hist(nu_vec[(burnin+1):(burnin+niter)],30,prob=TRUE,main="Posterior",xlab = "nu")
+hist(pi_vec[(burnin+1):(burnin+niter)],30,prob=TRUE,main="Posterior",xlab = "pi")
+par(mfrow=c(2,1))
+plot(nu_vec[(burnin+1):(burnin+niter)],type="l",main="Traceplot",ylab = "nu",xlab="Iteration")
+plot(pi_vec[(burnin+1):(burnin+niter)],type="l",main="Traceplot",ylab = "pi",xlab="Iteration")
+
+#The Markov chain seems to have good mixing, since it rapidly explores the posterior, so the convergence is good.
+
+
+#4
+
+cars
+
+library(rstan)
+
+LinRegModel <- '
+data {
+  int<lower=0> N;
+  vector[N] x;
+  vector[N] y;
+}
+parameters {
+  real alpha;
+  real beta;
+  real<lower=0> sigma2;
+}
+model {
+  sigma2 ~ scaled_inv_chi_square(5,10);
+  for (n in 1:N)
+    y[n] ~ normal(alpha + beta * x[n], sqrt(sigma2));
+}'
+
+DataRStan<-
+  list(N = nrow(cars),
+       x = cars$speed,
+       y = cars$dist) 
+
+fit_Model<-stan(model_code=LinRegModel,
+                  data=DataRStan,
+                  warmup=500,
+                  iter=2000,
+                  chains = 1)
+
+print(fit_Model,digits=4)
+res<-extract(fit_Model)
+res
+
+
+plot(DataRStan)
+plot(cars)
+
+xGrid = seq(0,25)
+y_prediction_mean = c()
+lower = c()
+upper = c()
+for (x in xGrid){
+  ypred = res$alpha + res$beta*x  + rnorm(1500, 0, sqrt(res$sigma2))
+  y_prediction_mean = append(y_prediction_mean, mean(ypred))
+  qc = quantile(ypred, probs = seq(0,1, 0.05))
+  lower = append(lower, qc[2])
+  upper = append(upper, qc[20])
+}
+
+qc = quantile(ypred, probs = seq(0,1, 0.05))
+qc[20]
+lines(y_prediction_mean)
+lines(upper)
+lines(lower)
+
+quantile(res$alpha, probs = c(0.05, 0.95))
+res$sigma2
+lines(res$sigma2)
+
+
+
+#C
+
+LinRegModel2 <- '
+data {
+  int<lower=0> N;
+  vector[N] x;
+  vector[N] y;
+}
+parameters {
+  real alpha;
+  real beta;
+  real gamma;
+  real phi;
+  real<lower=0> sigma2[N];
+}
+model {
+  
+  for (n in 1:N){
+    sigma2[n] ~ scaled_inv_chi_square(5, exp(gamma + phi * x[n]));
+    y[n] ~ normal(alpha + beta * x[n], sqrt(sigma2[n]));
+  }
+}'
+
+fit_Model2<-stan(model_code=LinRegModel2,
+                data=DataRStan,
+                warmup=500,
+                iter=2000,
+                chains = 1)
+
+print(fit_Model2,digits=4)
+res<-extract(fit_Model2)
+res$sigma2
+res
+res
+
+plot(DataRStan)
+plot(cars)
+
+xGrid = seq(0,25)
+y_prediction_mean = c()
+lower = c()
+upper = c()
+for (x in xGrid){
+  ypred = res$alpha + res$beta*x  + rnorm(1500, 0, sqrt(res$sigma2))
+  y_prediction_mean = append(y_prediction_mean, mean(ypred))
+  qc = quantile(ypred, probs = seq(0,1, 0.05))
+  lower = append(lower, qc[2])
+  upper = append(upper, qc[20])
+}
+
+qc = quantile(ypred, probs = seq(0,1, 0.05))
+qc[20]
+lines(y_prediction_mean)
+lines(upper)
+lines(lower)
+
+quantile(res$alpha, probs = c(0.05, 0.95))
+res$sigma2
+lines(res$sigma2)
+
+
+```
+
+
+
+
+
+
+#2019-08-21
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r,eval=FALSE, echo=TRUE}
+nCovs = dim(X)[2]
+mu_0 = rep(0,nCovs)
+Omega_0 = (1/100)*diag(nCovs)
+v_0 = 1
+sigma2_0 = 5^2  
+
+joint_posterior = BayesLinReg(y, X, mu_0, Omega_0, v_0, sigma2_0, nIter = 5000)
+betas = joint_posterior$betaSample
+sigmas = joint_posterior$sigma2Sample
+
+
+Bmean = colMeans(joint_posterior$betaSample)
+Bq025 = apply(joint_posterior$betaSample,2,quantile,.025)
+Bq975 = apply(joint_posterior$betaSample,2,quantile,.975)
+print(data.frame(round(cbind(Bmean,Bq025,Bq975),3)),row.names=covNames)#B compute density 
+sigma_density = density(joint_posterior$sigma2Sample)
+plot(sigma_density)
+summary(sigma_density)
+
+
+sorted_normalized_y = sort(sigma_density$y, decreasing = TRUE)/sum(sigma_density$y)
+sorted_x = sigma_density$x[order(-sigma_density$y)]
+
+
+count = 0
+summa = 0
+while(summa <= 0.95){
+  count = count + 1
+  summa = sorted_normalized_y[count] + summa
+}
+a = min(sorted_x[1:count-1])
+b = max(sorted_x[1:count-1])
+
+mode = sorted_x[which.max(sorted_normalized_y)]
+
+XNewHouse
+nSim <- dim(joint_posterior$betaSample)[1]
+
+ypred = c()
+
+for(i in 1:5000){
+  ypred = append(ypred, XNewHouse%*%betas[i,]) + rnorm(1, 0, sqrt(sigmas[i]))
+}
+
+sum(ypred>20)/nSim
+
+#2
+alpha = 1
+beta = 1
+n = 5
+sumx = 65
+nsim = 5000
+
+theta = rbeta(5000, n + alpha, sumx + beta)
+predicted_observations = rgeom(5000, theta)
+
+#Using quantile extraciting 0.95 we get the value for x where we with 95% probability can say that the next earthwake will have occured
+quantile(predicted_observations, 0.95)
+
+
+# 3
+yData
+xData
+m = length(xData)
+sumx = sum(xData)
+log.posterior = function(xData, yData, theta){
+  m = length(xData)
+  sumx = sum(xData)
+  log.theta_given_x = dgamma(theta, m + 3, sumx + 2, log = TRUE)
+  #log.likelihood = sum(-3*log(1+(1/5)*(yData-log(theta))^2))
+  log.likelihood = sum(dt(yData-log(theta), 5, log = TRUE))
+  log.post = log.theta_given_x + log.likelihood
+  return(exp(log.post))
+}
+
+posterior = c()
+thetaGrid = seq(0,2, 0.01)
+for(theta in thetaGrid){
+  posterior = append(posterior, log.posterior(xData, yData, theta))
+}
+
+
+posterior_normalized = (1/0.01)*posterior/sum(posterior)
+plot(thetaGrid, posterior_normalized)
+
+logdNegBin <- function(x,mu,phi){
+  lchoose(x+phi-1,x) + x*log(mu/(mu+phi)) + phi*log(phi/(mu+phi))
+}
+
+log.posterior = function(param, x){
+  #initval[1] = my
+  #initval[2] = phi
+  #temp = factorial(x+phi-1)/(factorial(phi-1)*factorial(x))*(x*log(my/(my+phi))*phi*log(phi/(my+phi)))
+  theta1 = param[1]
+  theta2 = param[2]
+  logPost = sum(logdNegBin(x, theta1, theta2))  -  2*log(theta2)
+  return(logPost)
+  #return(temp)
+}
+
+
+#
+
+library(mvtnorm)
+metropolis = function(n, c, initval, hessian, posterior_density, x){
+  
+  # this step depends on previous position. Previous position becomes this turns mean. 
+  proposal_draws_previous = initval;
+  
+  acceptedDraws = matrix(0, ncol=2,nrow=n)
+  accprobvec <- rep(0,n)
+  
+  set.seed(12345)
+  for(i in 1:n){
+    # draws (theta_p) from the proposal distribution ~ N(theta_p-1, c*hessian)
+    proposal_draws = rmvnorm(1, proposal_draws_previous, c*hessian)
+    proposal_draws[proposal_draws <= 0] = 1e-6
+    # create a ratio depending on if this draw is better than previous, take exp to remove logarithm (logposterior)
+    # posterior_density = log.posterior => exp of the division => logA -logB 
+    acceptance_ratio = min(1,exp(posterior_density(proposal_draws, x)-posterior_density(proposal_draws_previous, x)))
+    # draw a random uniformed variable to compare wiht acceptance ratio
+    random_acceptance = runif(1,0,1)
+    # if acceptance ratio is bigger than random variable than we move to the new position, otherwise we stay
+    accprobvec[i] <- min(acceptance_ratio,1)
+    if(acceptance_ratio >= random_acceptance){
+      proposal_draws_previous = proposal_draws
+      params = proposal_draws
+    }
+    acceptedDraws[i,] = params
+    
+  }
+  return(list(draws = acceptedDraws, prob = accprobvec))
+}
+
+c = 0.1
+initval =c(200,20)
+hessian = diag(100,2)
+hessian = c*diag(c(100,5))
+x = incidents$incidents
+
+testDraws = metropolis(10000, c=0.1, initval, hessian, log.posterior, x)
+
+for(i in 1:2){
+  plot(testDraws[,i], type='s')
+  #a = c(rep(betas_posterior[i],nrow(testDraws)))
+  #lines(a, col='red')
+}
+
+
+
+
+```
+

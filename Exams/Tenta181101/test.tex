@@ -1,0 +1,309 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Untitled},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{Untitled}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#1a)}
+\NormalTok{y =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1690}\NormalTok{, }\DecValTok{1790}\NormalTok{, }\DecValTok{1760}\NormalTok{, }\DecValTok{1750}\NormalTok{)}
+\NormalTok{sigma2 =}\StringTok{ }\DecValTok{50}\OperatorTok{^}\DecValTok{2}
+\NormalTok{n =}\StringTok{ }\KeywordTok{length}\NormalTok{(y)}
+\NormalTok{meanY =}\StringTok{ }\KeywordTok{mean}\NormalTok{(y)}
+
+\CommentTok{#Make draws from posterior using non informative prior}
+\NormalTok{yDraws =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DataTypeTok{mean =}\NormalTok{ meanY, }\DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(sigma2 }\OperatorTok{+}\StringTok{ }\NormalTok{sigma2}\OperatorTok{/}\NormalTok{n))}
+\KeywordTok{hist}\NormalTok{(yDraws, }\DataTypeTok{freq =} \OtherTok{FALSE}\NormalTok{, }\DecValTok{50}\NormalTok{)}
+
+\CommentTok{#b}
+
+\CommentTok{#What is the prob that a weight in the next 365 days will have be larger than 230}
+\NormalTok{outcome =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DecValTok{1000}\NormalTok{, }\DecValTok{52}\NormalTok{)}
+\NormalTok{cases =}\StringTok{ }\KeywordTok{c}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{1000}\NormalTok{)\{}
+\NormalTok{  outcome[i,] =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{52}\NormalTok{, }\DataTypeTok{mean =}\NormalTok{ meanY, }\DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(sigma2 }\OperatorTok{+}\StringTok{ }\NormalTok{sigma2}\OperatorTok{/}\NormalTok{n))}
+  \CommentTok{#draws_larger_than = sum(prediction_52_weeks > 1850)}
+  \CommentTok{#cases_larger = append(cases_larger, draws_larger_than)}
+\NormalTok{  cases =}\StringTok{ }\KeywordTok{append}\NormalTok{(cases, }\KeywordTok{sum}\NormalTok{(outcome[i,] }\OperatorTok{>}\StringTok{ }\DecValTok{1850}\NormalTok{))}
+\NormalTok{\}}
+\NormalTok{mean =}\KeywordTok{mean}\NormalTok{(cases)}
+\NormalTok{mean =}\StringTok{ }\KeywordTok{mean}\NormalTok{(}\KeywordTok{rowSums}\NormalTok{(outcome }\OperatorTok{>}\StringTok{ }\DecValTok{1850}\NormalTok{))}
+
+\CommentTok{#c }
+\NormalTok{aGrid =}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{, }\DataTypeTok{length =} \DecValTok{1000}\NormalTok{)}
+
+
+\CommentTok{#Important to use all the cases calculated  => tae}
+\NormalTok{ExpectedLoss<-}\ControlFlowTok{function}\NormalTok{(a)\{}
+\NormalTok{  EL =}\StringTok{ }\NormalTok{a }\OperatorTok{+}\StringTok{ }\KeywordTok{mean}\NormalTok{(}\KeywordTok{rowSums}\NormalTok{(outcome }\OperatorTok{>}\StringTok{ }\DecValTok{1000}\OperatorTok{*}\KeywordTok{log}\NormalTok{(a)))}
+  \KeywordTok{return}\NormalTok{(EL)}
+\NormalTok{\}}
+
+\NormalTok{loss =}\StringTok{ }\KeywordTok{c}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{(a }\ControlFlowTok{in}\NormalTok{ aGrid)\{}
+\NormalTok{  loss =}\StringTok{ }\KeywordTok{append}\NormalTok{(loss, }\KeywordTok{ExpectedLoss}\NormalTok{(a))}
+\NormalTok{\}}
+\KeywordTok{plot}\NormalTok{(aGrid, loss, }\DataTypeTok{type =} \StringTok{'l'}\NormalTok{)}
+\NormalTok{aMode =}\StringTok{ }\NormalTok{aGrid[}\KeywordTok{which.min}\NormalTok{(loss)]}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h =}\NormalTok{ aMode, }\DataTypeTok{col =} \StringTok{"green"}\NormalTok{)}
+
+\CommentTok{#2}
+
+\NormalTok{y =}\StringTok{ }\NormalTok{fish}\OperatorTok{$}\NormalTok{length}
+\KeywordTok{library}\NormalTok{(mvtnorm)}
+\NormalTok{data =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{44}\NormalTok{, }\DecValTok{6}\NormalTok{)}
+\NormalTok{data[,}\DecValTok{1}\NormalTok{] =}\StringTok{ }\NormalTok{fish}\OperatorTok{$}\NormalTok{intercept}
+\NormalTok{data[,}\DecValTok{2}\NormalTok{] =}\StringTok{ }\NormalTok{fish}\OperatorTok{$}\NormalTok{age}
+\NormalTok{data[,}\DecValTok{3}\NormalTok{] =}\StringTok{ }\NormalTok{fish}\OperatorTok{$}\NormalTok{temp}
+\NormalTok{data[,}\DecValTok{4}\NormalTok{] =}\StringTok{ }\NormalTok{(fish}\OperatorTok{$}\NormalTok{age)}\OperatorTok{^}\DecValTok{2}
+\NormalTok{data[,}\DecValTok{5}\NormalTok{] =}\StringTok{ }\NormalTok{(fish}\OperatorTok{$}\NormalTok{temp)}\OperatorTok{^}\DecValTok{2}
+\NormalTok{data[,}\DecValTok{6}\NormalTok{] =}\StringTok{ }\NormalTok{(fish}\OperatorTok{$}\NormalTok{age)}\OperatorTok{*}\NormalTok{(fish}\OperatorTok{$}\NormalTok{temp)}
+\NormalTok{X =}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(data)}
+\NormalTok{nCovs =}\StringTok{ }\KeywordTok{dim}\NormalTok{(X)[}\DecValTok{2}\NormalTok{]}
+\NormalTok{mu_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,nCovs)}
+\NormalTok{Omega_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\FloatTok{0.01}\OperatorTok{*}\KeywordTok{diag}\NormalTok{(nCovs)}
+\CommentTok{# Omega_0[3,3] = 1000}
+\NormalTok{v_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\DecValTok{1}
+\NormalTok{sigma2_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\DecValTok{10000}
+\NormalTok{nIter =}\StringTok{ }\DecValTok{5000}
+
+\NormalTok{Results =}\StringTok{ }\KeywordTok{BayesLinReg}\NormalTok{(y, X, mu_}\DecValTok{0}\NormalTok{, Omega_}\DecValTok{0}\NormalTok{, v_}\DecValTok{0}\NormalTok{, sigma2_}\DecValTok{0}\NormalTok{, nIter)}
+\NormalTok{Results}\OperatorTok{$}\NormalTok{betaSample}
+\NormalTok{Bmean =}\StringTok{ }\KeywordTok{colMeans}\NormalTok{(Results}\OperatorTok{$}\NormalTok{betaSample)}
+\NormalTok{Bq025 =}\StringTok{ }\KeywordTok{apply}\NormalTok{(Results}\OperatorTok{$}\NormalTok{betaSample,}\DecValTok{2}\NormalTok{,quantile,.}\DecValTok{025}\NormalTok{)}
+\NormalTok{Bq975 =}\StringTok{ }\KeywordTok{apply}\NormalTok{(Results}\OperatorTok{$}\NormalTok{betaSample,}\DecValTok{2}\NormalTok{,quantile,.}\DecValTok{975}\NormalTok{)}
+\KeywordTok{print}\NormalTok{(}\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{round}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(Bmean,Bq025,Bq975),}\DecValTok{3}\NormalTok{)),}\DataTypeTok{row.names=} \KeywordTok{c}\NormalTok{(}\StringTok{"intercept"}\NormalTok{, }\StringTok{"age"}\NormalTok{, }\StringTok{"temp"}\NormalTok{, }\StringTok{"age^2"}\NormalTok{, }\StringTok{"temp^2"}\NormalTok{, }\StringTok{"ageXtemp"}\NormalTok{))}
+
+
+\KeywordTok{median}\NormalTok{(}\KeywordTok{sqrt}\NormalTok{(Results}\OperatorTok{$}\NormalTok{sigma2Sample))}
+\KeywordTok{mean}\NormalTok{(}\KeywordTok{sqrt}\NormalTok{(Results}\OperatorTok{$}\NormalTok{sigma2Sample))}
+
+
+\CommentTok{#b}
+\NormalTok{plot_data =}\StringTok{ }\NormalTok{fish[}\DecValTok{1}\OperatorTok{:}\DecValTok{11}\NormalTok{,]}
+\KeywordTok{plot}\NormalTok{(plot_data}\OperatorTok{$}\NormalTok{age, plot_data}\OperatorTok{$}\NormalTok{length, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{90}\NormalTok{, }\DecValTok{600}\NormalTok{))}
+\NormalTok{betas =}\StringTok{ }\NormalTok{Results}\OperatorTok{$}\NormalTok{betaSample}
+\NormalTok{sigmas2 =}\StringTok{ }\NormalTok{Results}\OperatorTok{$}\NormalTok{sigma2Sample}
+
+
+\NormalTok{function_length =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(betas, sigmas2, X)\{}
+  \CommentTok{#length = betas%*%X + rnorm(1, mean = 0, sd = sqrt(sigmas2))}
+\NormalTok{  length =}\StringTok{ }\NormalTok{betas}\OperatorTok{%*%}\NormalTok{X }
+\NormalTok{\}}
+
+\NormalTok{ageGrid =}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{160}\NormalTok{)}
+\NormalTok{length_matrix =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5000}\NormalTok{, }\DecValTok{160}\NormalTok{)}
+\NormalTok{mean_length =}\StringTok{ }\KeywordTok{c}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{160}\NormalTok{)\{}
+\NormalTok{  length_matrix[,i] =}\StringTok{ }\KeywordTok{function_length}\NormalTok{(betas, sigmas2, }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,i, }\DecValTok{25}\NormalTok{, i}\OperatorTok{^}\DecValTok{2}\NormalTok{, }\DecValTok{25}\OperatorTok{^}\DecValTok{2}\NormalTok{, }\DecValTok{25}\OperatorTok{*}\NormalTok{i ))}
+\NormalTok{  mean_length =}\StringTok{ }\KeywordTok{append}\NormalTok{(mean_length, }\KeywordTok{mean}\NormalTok{(length_matrix[,i]))}
+\NormalTok{\}}
+\KeywordTok{lines}\NormalTok{(ageGrid, mean_length)}
+
+\NormalTok{Length025 =}\StringTok{ }\KeywordTok{apply}\NormalTok{(length_matrix,}\DecValTok{2}\NormalTok{,quantile,.}\DecValTok{025}\NormalTok{)}
+\NormalTok{Length975 =}\StringTok{ }\KeywordTok{apply}\NormalTok{(length_matrix,}\DecValTok{2}\NormalTok{,quantile,.}\DecValTok{975}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(ageGrid, Length025, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(ageGrid,Length975, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+
+\CommentTok{#4}
+\NormalTok{log.posterior =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(params, x)\{}
+\NormalTok{  alpha =}\StringTok{ }\NormalTok{params[}\DecValTok{1}\NormalTok{]}
+\NormalTok{  beta =}\StringTok{ }\NormalTok{params[}\DecValTok{2}\NormalTok{]}
+\NormalTok{  log.likelihood =}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{dweibull}\NormalTok{(x, alpha, beta, }\DataTypeTok{log =} \OtherTok{TRUE}\NormalTok{))}
+\NormalTok{  log.alpha.prior =}\StringTok{ }\DecValTok{2}\OperatorTok{*}\KeywordTok{log}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\NormalTok{(alpha}\OperatorTok{*}\NormalTok{beta))}
+\NormalTok{  log.beta.prior =}\StringTok{ }\DecValTok{2}\OperatorTok{*}\KeywordTok{log}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\NormalTok{(alpha}\OperatorTok{*}\NormalTok{beta))}
+\NormalTok{  log.post =}\StringTok{ }\NormalTok{log.likelihood }\OperatorTok{+}\StringTok{ }\NormalTok{log.alpha.prior }\OperatorTok{+}\StringTok{ }\NormalTok{log.beta.prior}
+  \ControlFlowTok{if}\NormalTok{(}\KeywordTok{abs}\NormalTok{(log.post) }\OperatorTok{==}\StringTok{ }\OtherTok{Inf}\NormalTok{)\{}
+\NormalTok{  log.likelihood =}\StringTok{ }\DecValTok{-20000}
+\NormalTok{\}}
+  \KeywordTok{return}\NormalTok{(log.post)}
+\NormalTok{\}}
+
+\NormalTok{x =}\StringTok{ }\NormalTok{weibull}
+
+\NormalTok{initVal <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{)); }
+\NormalTok{OptParams<-}\KeywordTok{optim}\NormalTok{(initVal,log.posterior,}\DataTypeTok{gr=}\OtherTok{NULL}\NormalTok{,x,}\DataTypeTok{method=}\KeywordTok{c}\NormalTok{(}\StringTok{"L-BFGS-B"}\NormalTok{),}\DataTypeTok{lower =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.00001}\NormalTok{,}\FloatTok{0.00001}\NormalTok{), }\DataTypeTok{upper =} \KeywordTok{c}\NormalTok{(}\OtherTok{Inf}\NormalTok{,}\OtherTok{Inf}\NormalTok{), }\DataTypeTok{control=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{fnscale=}\OperatorTok{-}\DecValTok{1}\NormalTok{),}\DataTypeTok{hessian=}\OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{params =}\StringTok{ }\NormalTok{OptParams}\OperatorTok{$}\NormalTok{par}
+
+\CommentTok{# takes negative so that the posterior can be approx. as normal}
+\CommentTok{# J = -second derivate evaluated in theta_hat}
+\NormalTok{hessian_posterior =}\StringTok{ }\OperatorTok{-}\KeywordTok{solve}\NormalTok{(OptParams}\OperatorTok{$}\NormalTok{hessian)}
+
+
+
+
+
+
+\CommentTok{#4b}
+
+
+
+\KeywordTok{library}\NormalTok{(mvtnorm)}
+\NormalTok{metropolis =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(n, c, initval, hessian, posterior_density, x)\{}
+  
+  \CommentTok{# this step depends on previous position. Previous position becomes this turns mean. }
+\NormalTok{  acceptedDraws[i,] =}\StringTok{ }\NormalTok{initval}
+\NormalTok{  proposal_draws_previous =}\StringTok{ }\NormalTok{initval;}
+\NormalTok{  acceptedDraws =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{,}\DataTypeTok{nrow=}\NormalTok{n)}
+\NormalTok{  accprobvec <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,n)}
+  
+  \KeywordTok{set.seed}\NormalTok{(}\DecValTok{12345}\NormalTok{)}
+  \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{2}\OperatorTok{:}\NormalTok{n)\{}
+    \CommentTok{# draws (theta_p) from the proposal distribution ~ N(theta_p-1, c*hessian)}
+\NormalTok{    proposal_draws =}\StringTok{ }\KeywordTok{rmvnorm}\NormalTok{(}\DecValTok{1}\NormalTok{, proposal_draws_previous, c}\OperatorTok{*}\NormalTok{hessian)}
+\NormalTok{    proposal_draws[proposal_draws }\OperatorTok{<=}\StringTok{ }\DecValTok{0}\NormalTok{] =}\StringTok{ }\FloatTok{1e-6}
+    \CommentTok{# create a ratio depending on if this draw is better than previous, take exp to remove logarithm (logposterior)}
+    \CommentTok{# posterior_density = log.posterior => exp of the division => logA -logB }
+\NormalTok{    acceptance_ratio =}\StringTok{ }\KeywordTok{min}\NormalTok{(}\DecValTok{1}\NormalTok{,}\KeywordTok{exp}\NormalTok{(}\KeywordTok{posterior_density}\NormalTok{(proposal_draws, x)}\OperatorTok{-}\KeywordTok{posterior_density}\NormalTok{(proposal_draws_previous, x)))}
+    \CommentTok{# draw a random uniformed variable to compare wiht acceptance ratio}
+\NormalTok{    random_acceptance =}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+    \CommentTok{# if acceptance ratio is bigger than random variable than we move to the new position, otherwise we stay}
+\NormalTok{    accprobvec[i] <-}\StringTok{ }\KeywordTok{min}\NormalTok{(acceptance_ratio,}\DecValTok{1}\NormalTok{)}
+    \ControlFlowTok{if}\NormalTok{(acceptance_ratio }\OperatorTok{>=}\StringTok{ }\NormalTok{random_acceptance)\{}
+\NormalTok{      proposal_draws_previous =}\StringTok{ }\NormalTok{proposal_draws}
+\NormalTok{      params =}\StringTok{ }\NormalTok{proposal_draws}
+\NormalTok{    \}}
+\NormalTok{    acceptedDraws[i,] =}\StringTok{ }\NormalTok{params}
+\NormalTok{  \}}
+  \KeywordTok{return}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{draws =}\NormalTok{ acceptedDraws, }\DataTypeTok{prob =}\NormalTok{ accprobvec))}
+\NormalTok{\}}
+
+\NormalTok{c =}\StringTok{ }\FloatTok{0.1}
+\NormalTok{initval =}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{hessian =}\StringTok{ }\NormalTok{hessian_posterior}
+\NormalTok{x =}\StringTok{ }\NormalTok{weibull}
+
+\NormalTok{mp1 =}\StringTok{ }\KeywordTok{metropolis}\NormalTok{(}\DecValTok{10000}\NormalTok{, }\DataTypeTok{c=}\FloatTok{0.1}\NormalTok{, initval, hessian, log.posterior, x)}
+\NormalTok{mp2 =}\StringTok{ }\KeywordTok{metropolis}\NormalTok{(}\DecValTok{10000}\NormalTok{, }\DataTypeTok{c=}\DecValTok{4}\NormalTok{, initval, hessian, log.posterior, x)}
+\NormalTok{mp3 =}\StringTok{ }\KeywordTok{metropolis}\NormalTok{(}\DecValTok{10000}\NormalTok{, }\DataTypeTok{c=}\DecValTok{100}\NormalTok{, initval, hessian, log.posterior, x)}
+
+
+
+\KeywordTok{mean}\NormalTok{(mp1}\OperatorTok{$}\NormalTok{prob)}
+\KeywordTok{mean}\NormalTok{(mp2}\OperatorTok{$}\NormalTok{prob)}
+\KeywordTok{mean}\NormalTok{(mp3}\OperatorTok{$}\NormalTok{prob)}
+
+\CommentTok{#bättre sätt}
+\NormalTok{c <-}\StringTok{ }\FloatTok{0.1}
+\NormalTok{niter <-}\StringTok{ }\DecValTok{2000}
+\NormalTok{warmup <-}\StringTok{ }\DecValTok{500}
+\NormalTok{mp <-}\StringTok{ }\KeywordTok{Metropolis}\NormalTok{(c,niter,warmup,initVal,Sigma,logPostWeibull,x)}
+\NormalTok{n <-}\StringTok{ }\KeywordTok{length}\NormalTok{(initVal)}
+\NormalTok{theta_mean <-}\StringTok{ }\KeywordTok{rowMeans}\NormalTok{(mp}\OperatorTok{$}\NormalTok{thetamat[,(warmup}\OperatorTok{+}\DecValTok{1}\NormalTok{)}\OperatorTok{:}\NormalTok{(warmup}\OperatorTok{+}\NormalTok{niter)])}
+\NormalTok{theta_var<-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,n)}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{n) \{}
+\NormalTok{  theta_var[i] <-}\StringTok{ }\KeywordTok{var}\NormalTok{(mp}\OperatorTok{$}\NormalTok{thetamat[i,(warmup}\OperatorTok{+}\DecValTok{1}\NormalTok{)}\OperatorTok{:}\NormalTok{(warmup}\OperatorTok{+}\NormalTok{niter)]) }
+\NormalTok{\}}
+
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(mp}\OperatorTok{$}\NormalTok{thetamat[}\DecValTok{1}\NormalTok{,], }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(mp}\OperatorTok{$}\NormalTok{thetamat[}\DecValTok{2}\NormalTok{,], }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{)}
+\KeywordTok{mean}\NormalTok{(mp}\OperatorTok{$}\NormalTok{accprobvec)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{document}
